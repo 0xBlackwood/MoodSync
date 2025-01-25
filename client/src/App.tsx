@@ -1,12 +1,32 @@
 import React, { useState } from 'react';
 import MoodSelector from './components/MoodSelector';
+import { saveMood, Mood } from './api/moods';
 
 function App() {
   const [selectedMood, setSelectedMood] = useState<any>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [message, setMessage] = useState<string>('');
 
-  const handleMoodSelect = (mood: any) => {
+  const handleMoodSelect = async (mood: any) => {
     setSelectedMood(mood);
-    console.log('Selected mood:', mood);
+    setIsLoading(true);
+    setMessage('');
+    
+    try {
+      const moodData: Mood = {
+        mood_value: mood.value,
+        mood_label: mood.label,
+        emoji: mood.emoji,
+      };
+      
+      await saveMood(moodData);
+      setMessage('Mood saved successfully!');
+    } catch (error) {
+      setMessage('Failed to save mood');
+      console.error('Error saving mood:', error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -22,7 +42,23 @@ function App() {
         <div className="bg-white rounded-lg shadow p-6">
           <MoodSelector onMoodSelect={handleMoodSelect} />
           
-          {selectedMood && (
+          {isLoading && (
+            <div className="mt-6 p-4 bg-gray-50 rounded-lg">
+              <p className="text-gray-600">Saving mood...</p>
+            </div>
+          )}
+          
+          {message && !isLoading && (
+            <div className={`mt-6 p-4 rounded-lg ${
+              message.includes('success') 
+                ? 'bg-green-50 text-green-800' 
+                : 'bg-red-50 text-red-800'
+            }`}>
+              <p>{message}</p>
+            </div>
+          )}
+          
+          {selectedMood && !isLoading && (
             <div className="mt-6 p-4 bg-blue-50 rounded-lg">
               <p className="text-blue-800">
                 You're feeling {selectedMood.label} {selectedMood.emoji}
