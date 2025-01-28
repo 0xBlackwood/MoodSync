@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import MoodSelector from './components/MoodSelector';
+import MoodHistory from './components/MoodHistory';
 import { saveMood, Mood } from './api/moods';
 
 function App() {
@@ -38,7 +39,7 @@ function App() {
         </div>
       </header>
       
-      <main className="max-w-7xl mx-auto py-6 px-4">
+      <main className="max-w-7xl mx-auto py-6 px-4 space-y-6">
         <div className="bg-white rounded-lg shadow p-6">
           <MoodSelector onMoodSelect={handleMoodSelect} />
           
@@ -66,6 +67,8 @@ function App() {
             </div>
           )}
         </div>
+
+        <MoodHistory />
       </main>
     </div>
   );
