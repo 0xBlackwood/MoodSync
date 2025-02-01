@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import NoteInput from './NoteInput';
 
 const moods = [
   { emoji: '😊', label: 'Happy', value: 5 },
@@ -9,15 +10,28 @@ const moods = [
 ];
 
 interface MoodSelectorProps {
-  onMoodSelect: (mood: any) => void;
+  onMoodSelect: (mood: any, note: string) => void;
 }
 
 const MoodSelector: React.FC<MoodSelectorProps> = ({ onMoodSelect }) => {
-  const [selectedMood, setSelectedMood] = useState<number | null>(null);
+  const [selectedMood, setSelectedMood] = useState<any>(null);
+  const [note, setNote] = useState<string>('');
 
   const handleSelect = (mood: any) => {
-    setSelectedMood(mood.value);
-    onMoodSelect(mood);
+    setSelectedMood(mood);
+  };
+
+  const handleNoteChange = (noteText: string) => {
+    setNote(noteText);
+  };
+
+  const handleSave = () => {
+    if (selectedMood) {
+      onMoodSelect(selectedMood, note);
+      // Reset after saving
+      setSelectedMood(null);
+      setNote('');
+    }
   };
 
   return (
@@ -29,7 +43,7 @@ const MoodSelector: React.FC<MoodSelectorProps> = ({ onMoodSelect }) => {
             key={mood.value}
             onClick={() => handleSelect(mood)}
             className={`p-4 rounded-lg text-center transition-all ${
-              selectedMood === mood.value
+              selectedMood?.value === mood.value
                 ? 'bg-blue-100 ring-2 ring-blue-500'
                 : 'bg-gray-50 hover:bg-gray-100'
             }`}
@@ -39,6 +53,19 @@ const MoodSelector: React.FC<MoodSelectorProps> = ({ onMoodSelect }) => {
           </button>
         ))}
       </div>
+      
+      {selectedMood && (
+        <div className="space-y-4">
+          <NoteInput onNoteChange={handleNoteChange} />
+          <button
+            onClick={handleSave}
+            className="w-full bg-blue-500 text-white py-3 px-4 rounded-lg 
+                       hover:bg-blue-600 transition-colors font-medium"
+          >
+            Save Mood Entry
+          </button>
+        </div>
+      )}
     </div>
   );
 };

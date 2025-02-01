@@ -58,24 +58,31 @@ const MoodHistory: React.FC = () => {
       ) : (
         <div className="space-y-3">
           {moods.map((mood) => (
-            <div key={mood.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-              <div className="flex items-center space-x-3">
-                <span className="text-2xl">{mood.emoji}</span>
-                <div>
-                  <p className="font-medium">{mood.mood_label}</p>
-                  <p className="text-sm text-gray-500">
-                    {mood.created_at && formatDate(mood.created_at)}
-                  </p>
+            <div key={mood.id} className="p-4 bg-gray-50 rounded-lg">
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center space-x-3">
+                  <span className="text-2xl">{mood.emoji}</span>
+                  <div>
+                    <p className="font-medium">{mood.mood_label}</p>
+                    <p className="text-sm text-gray-500">
+                      {mood.created_at && formatDate(mood.created_at)}
+                    </p>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <div className="w-12 h-2 bg-gray-200 rounded-full overflow-hidden">
+                    <div 
+                      className="h-full bg-blue-500 transition-all"
+                      style={{ width: `${(mood.mood_value / 5) * 100}%` }}
+                    />
+                  </div>
                 </div>
               </div>
-              <div className="text-right">
-                <div className="w-12 h-2 bg-gray-200 rounded-full overflow-hidden">
-                  <div 
-                    className="h-full bg-blue-500 transition-all"
-                    style={{ width: `${(mood.mood_value / 5) * 100}%` }}
-                  />
+              {mood.note && (
+                <div className="mt-2 p-2 bg-white rounded text-sm text-gray-700 border-l-2 border-blue-200">
+                  {mood.note}
                 </div>
-              </div>
+              )}
             </div>
           ))}
         </div>

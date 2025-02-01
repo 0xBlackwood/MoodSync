@@ -8,7 +8,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState<string>('');
 
-  const handleMoodSelect = async (mood: any) => {
+  const handleMoodSelect = async (mood: any, note: string) => {
     setSelectedMood(mood);
     setIsLoading(true);
     setMessage('');
@@ -18,10 +18,16 @@ function App() {
         mood_value: mood.value,
         mood_label: mood.label,
         emoji: mood.emoji,
+        note: note.trim() || undefined,
       };
       
       await saveMood(moodData);
       setMessage('Mood saved successfully!');
+      // Clear selected mood after successful save
+      setTimeout(() => {
+        setSelectedMood(null);
+        setMessage('');
+      }, 2000);
     } catch (error) {
       setMessage('Failed to save mood');
       console.error('Error saving mood:', error);
