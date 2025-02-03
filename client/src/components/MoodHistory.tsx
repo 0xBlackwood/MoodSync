@@ -50,27 +50,27 @@ const MoodHistory: React.FC = () => {
   }
 
   return (
-    <div className="bg-white rounded-lg shadow p-6">
-      <h2 className="text-xl font-semibold mb-4">Mood History</h2>
+    <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+      <h2 className="text-lg sm:text-xl font-semibold mb-4">Mood History</h2>
       
       {moods.length === 0 ? (
         <p className="text-gray-500">No mood entries yet. Start tracking your mood!</p>
       ) : (
         <div className="space-y-3">
           {moods.map((mood) => (
-            <div key={mood.id} className="p-4 bg-gray-50 rounded-lg">
+            <div key={mood.id} className="p-3 sm:p-4 bg-gray-50 rounded-lg">
               <div className="flex items-center justify-between mb-2">
-                <div className="flex items-center space-x-3">
-                  <span className="text-2xl">{mood.emoji}</span>
-                  <div>
-                    <p className="font-medium">{mood.mood_label}</p>
-                    <p className="text-sm text-gray-500">
+                <div className="flex items-center space-x-2 sm:space-x-3 flex-1 min-w-0">
+                  <span className="text-xl sm:text-2xl flex-shrink-0">{mood.emoji}</span>
+                  <div className="min-w-0 flex-1">
+                    <p className="font-medium text-sm sm:text-base truncate">{mood.mood_label}</p>
+                    <p className="text-xs sm:text-sm text-gray-500">
                       {mood.created_at && formatDate(mood.created_at)}
                     </p>
                   </div>
                 </div>
-                <div className="text-right">
-                  <div className="w-12 h-2 bg-gray-200 rounded-full overflow-hidden">
+                <div className="flex-shrink-0 ml-2">
+                  <div className="w-8 sm:w-12 h-2 bg-gray-200 rounded-full overflow-hidden">
                     <div 
                       className="h-full bg-blue-500 transition-all"
                       style={{ width: `${(mood.mood_value / 5) * 100}%` }}

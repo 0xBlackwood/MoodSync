@@ -37,19 +37,19 @@ const MoodSelector: React.FC<MoodSelectorProps> = ({ onMoodSelect }) => {
   return (
     <div className="space-y-4">
       <h3 className="text-lg font-medium">How are you feeling?</h3>
-      <div className="grid grid-cols-5 gap-4">
+      <div className="grid grid-cols-3 sm:grid-cols-5 gap-3 sm:gap-4">
         {moods.map((mood) => (
           <button
             key={mood.value}
             onClick={() => handleSelect(mood)}
-            className={`p-4 rounded-lg text-center transition-all ${
+            className={`p-3 sm:p-4 rounded-lg text-center transition-all ${
               selectedMood?.value === mood.value
                 ? 'bg-blue-100 ring-2 ring-blue-500'
                 : 'bg-gray-50 hover:bg-gray-100'
             }`}
           >
-            <div className="text-3xl mb-2">{mood.emoji}</div>
-            <div className="text-sm text-gray-600">{mood.label}</div>
+            <div className="text-2xl sm:text-3xl mb-1 sm:mb-2">{mood.emoji}</div>
+            <div className="text-xs sm:text-sm text-gray-600">{mood.label}</div>
           </button>
         ))}
       </div>

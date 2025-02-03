@@ -39,14 +39,14 @@ function App() {
   return (
     <div className="min-h-screen bg-gray-50">
       <header className="bg-white shadow">
-        <div className="max-w-7xl mx-auto py-6 px-4">
-          <h1 className="text-3xl font-bold text-gray-900">MoodSync</h1>
-          <p className="text-gray-600">Track your daily mood patterns</p>
+        <div className="max-w-4xl mx-auto py-4 sm:py-6 px-4">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">MoodSync</h1>
+          <p className="text-sm sm:text-base text-gray-600">Track your daily mood patterns</p>
         </div>
       </header>
       
-      <main className="max-w-7xl mx-auto py-6 px-4 space-y-6">
-        <div className="bg-white rounded-lg shadow p-6">
+      <main className="max-w-4xl mx-auto py-4 sm:py-6 px-4 space-y-4 sm:space-y-6">
+        <div className="bg-white rounded-lg shadow p-4 sm:p-6">
           <MoodSelector onMoodSelect={handleMoodSelect} />
           
           {isLoading && (
